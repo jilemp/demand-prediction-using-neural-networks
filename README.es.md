@@ -1,88 +1,107 @@
-# Plantilla de Proyecto de Ciencia de Datos
+# 📦 Predicción de Demanda con Redes Neuronales
+Este repositorio presenta un proyecto final enfocado en la predicción de demanda para componentes de maquinaria utilizando técnicas de aprendizaje automático, con énfasis principal en redes neuronales. Desarrollado como parte del programa de Ciencia de Datos y Machine Learning de **4Geeks Academy**, este proyecto demuestra cómo modelos avanzados pueden optimizar inventarios y reducir costos.
 
-Esta plantilla está diseñada para impulsar proyectos de ciencia de datos proporcionando una configuración básica para conexiones de base de datos, procesamiento de datos, y desarrollo de modelos de aprendizaje automático. Incluye una organización estructurada de carpetas para tus conjuntos de datos y un conjunto de paquetes de Python predefinidos necesarios para la mayoría de las tareas de ciencia de datos.
+---
 
-## Estructura
+## 📁 Contenido del Proyecto
 
-El proyecto está organizado de la siguiente manera:
+```
+├── project_notebook.ipynb       # Notebook completo con preprocesamiento, modelado y evaluación
+├── Predicción_de_Demanda.pdf    # Informe final del proyecto (en español)
+├── data/                        # (Opcional) Conjuntos de datos utilizados para el modelado
+├── README.md                    # Descripción general e instrucciones del proyecto
+```
 
-- `app.py` - El script principal de Python que ejecutas para tu proyecto.
-- `explore.py` - Un notebook para que puedas hacer tus exploraciones, idealmente el codigo de este notebook se migra hacia app.py para subir a produccion.
-- `utils.py` - Este archivo contiene código de utilidad para operaciones como conexiones de base de datos.
-- `requirements.txt` - Este archivo contiene la lista de paquetes de Python necesarios.
-- `models/` - Este directorio debería contener tus clases de modelos SQLAlchemy.
-- `data/` - Este directorio contiene los siguientes subdirectorios:
-  - `interim/` - Para datos intermedios que han sido transformados.
-  - `processed/` - Para los datos finales a utilizar para el modelado.
-  - `raw/` - Para datos brutos sin ningún procesamiento.
+---
 
-## Configuración
+## 🧠 Contexto del Problema
 
-**Prerrequisitos**
+La empresa:
 
-Asegúrate de tener Python 3.11+ instalado en tu máquina. También necesitarás pip para instalar los paquetes de Python.
+- Está ubicada en Ecuador y suministra repuestos de maquinaria a la industria alimentaria.  
+- Obtiene productos de Asia y Europa, con largos tiempos de envío.  
+- Busca optimizar inventarios prediciendo la demanda a partir de variables internas y externas.  
 
-**Instalación**
+---
 
-Clona el repositorio del proyecto en tu máquina local.
+## 📊 Descripción de los Datos
 
-Navega hasta el directorio del proyecto e instala los paquetes de Python requeridos:
+- 📅 Rango Histórico: 2021–2024  
+- 🛍 Número de SKUs: 1,105 ítems únicos  
+- 📄 Transacciones: 3,605 totales  
+- 💡 Variables incluidas: ventas, compras, tipos de productos, y factores macroeconómicos como:  
+  - Precio del Petróleo Brent  
+  - IPC de Ecuador  
+  - PIB de Ecuador  
+
+---
+
+## 🔍 Metodología
+
+**Enfoque de ML:** Redes Neuronales usando `MLPRegressor`  
+
+**Arquitectura del modelo:**
+- 8 capas ocultas con 100 neuronas cada una  
+- Activación: ReLU  
+- Optimizador: LBFGS  
+- Ajuste de hiperparámetros: GridSearch y Validación Cruzada  
+
+📈 Otros modelos evaluados:  
+- Regresión Logística  
+- AdaBoost  
+- KNN  
+- SVC  
+- Random Forest  
+
+---
+
+## 📌 Resultados
+
+- 🔍 MAE: 12.39  
+- 🎯 Impacto:
+  - Reducción de sobreinventario  
+  - Mejora en la precisión del pronóstico  
+  - Optimización del inventario  
+
+---
+
+## 📈 Mejoras Futuras
+
+- Incluir estacionalidad, promociones, competencia y tasas de cambio.  
+- Mejorar la ingeniería de características y explorar nuevas arquitecturas de modelos.  
+- Implementar reentrenamiento automático del modelo para entornos de inventario dinámicos.  
+
+---
+
+## 🚀 Cómo Empezar
+
+**Requisitos Previos**  
+Instala las dependencias:
 
 ```bash
 pip install -r requirements.txt
 ```
 
-**Crear una base de datos (si es necesario)**
-
-Crea una nueva base de datos dentro del motor Postgres personalizando y ejecutando el siguiente comando: `$ createdb -h localhost -U <username> <db_name>`
-Conéctate al motor Postgres para usar tu base de datos, manipular tablas y datos: `$ psql -h localhost -U <username> <db_name>`
-NOTA: Recuerda revisar la información del archivo ./.env para obtener el nombre de usuario y db_name.
-
-¡Una vez que estés dentro de PSQL podrás crear tablas, hacer consultas, insertar, actualizar o eliminar datos y mucho más!
-
-**Variables de entorno**
-
-Crea un archivo .env en el directorio raíz del proyecto para almacenar tus variables de entorno, como tu cadena de conexión a la base de datos:
-
-```makefile
-DATABASE_URL="your_database_connection_url_here"
-```
-
-## Ejecutando la Aplicación
-
-Para ejecutar la aplicación, ejecuta el script app.py desde la raíz del directorio del proyecto:
+**Ejecutar el notebook**
 
 ```bash
-python app.py
+jupyter notebook project_notebook.ipynb
 ```
 
-## Añadiendo Modelos
+---
 
-Para añadir clases de modelos SQLAlchemy, crea nuevos archivos de script de Python dentro del directorio models/. Estas clases deben ser definidas de acuerdo a tu esquema de base de datos.
+## 📚 Referencias
 
-Definición del modelo de ejemplo (`models/example_model.py`):
+- [Investing.com – Precios del Petróleo Brent (2021–2024)]  
+- [Trading Economics – PIB e IPC de Ecuador]  
+- [Documentación de Scikit-learn para MLPRegressor]  
 
-```py
-from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy import Column, Integer, String
+---
 
-Base = declarative_base()
+## 👥 Autores
 
-class ExampleModel(Base):
-    __tablename__ = 'example_table'
-    id = Column(Integer, primary_key=True)
-    name = Column(String)
+- Alfonzo Gonzalez  
+- Andrés Cabrales  
+- José Ignacio Ibarra  
 
-```
-
-## Trabajando con Datos
-
-Puedes colocar tus conjuntos de datos brutos en el directorio data/raw, conjuntos de datos intermedios en data/interim, y los conjuntos de datos procesados listos para el análisis en data/processed.
-
-Para procesar datos, puedes modificar el script app.py para incluir tus pasos de procesamiento de datos, utilizando pandas para la manipulación y análisis de datos.
-
-## Contribuyentes
-
-Esta plantilla fue construida como parte del [Data Science and Machine Learning Bootcamp](https://4geeksacademy.com/us/coding-bootcamps/datascience-machine-learning) de 4Geeks Academy por [Alejandro Sanchez](https://twitter.com/alesanchezr) y muchos otros contribuyentes. Descubre más sobre [los programas BootCamp de 4Geeks Academy](https://4geeksacademy.com/us/programs) aquí.
-
-Otras plantillas y recursos como este se pueden encontrar en la página de GitHub de la escuela.
+🎓 Desarrollado como parte del programa de Ciencia de Datos y Machine Learning de **4Geeks Academy**
